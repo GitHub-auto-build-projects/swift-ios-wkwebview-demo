@@ -22,6 +22,7 @@ jobs:
           p12-base64: ${{ secrets.IOS_DISTRIBUTION_P12 }}
           certificate-password: ${{ secrets.IOS_CERTS_MDP }}
           mobileprovision-base64: ${{ secrets.IOS_PROFILE }}
+          code-signing-identity: iOS Distribution
           team-id: ${{ secrets.APPLE_TEAM_ID }}
 
       - name: Upload APK to TestApp.io
