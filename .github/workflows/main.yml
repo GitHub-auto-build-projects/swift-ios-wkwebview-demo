@@ -1,11 +1,32 @@
-name: Call iOS Build
+name: CI
 
 on: [push]
 
 jobs:
+  build:
 
-  call-workflow-1:
-    uses: GitHub-auto-build-projects/Reusable-Workflows/.github/workflows/BuildIPA.yml@main
-    with:
-      projectname: wkwebview
-    secrets: inherit
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: true
+
+   
+    - name: actual build
+      run: xcodebuild archive -project wkwebview.xcodeproj -archivePath unsigned.xcarchive -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+      
+    - name: actual build
+      run: set -o pipefail && xcodebuild archive -project wkwebview.xcodeproj -scheme wkwebview -sdk iphoneos -configuration Debug clean build IPHONEOS_DEPLOYMENT_TARGET='15.0' CODE_SIGN_IDENTITY='' CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=NO | tee build.log | xcpretty
+
+    - name: generate unsigned debug ipa
+      run: |
+        cd ~
+        mkdir Payload
+        mv ~/Library/Developer/Xcode/Archives/*/*/Products/Applications/wkwebview.app ~/Payload/
+        zip -r Blink.ipa Payload
+    - name: upload ipa
+      uses: actions/upload-artifact@v2.2.0
+      with:
+        name: 'BlinkShell'
+        path: ~/Blink.ipa
