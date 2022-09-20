@@ -12,26 +12,22 @@ jobs:
         with:
           submodules: true
 
-      - name: Build and export iOS
-        uses: yukiarrr/ios-build-action@v1.4.0
-        with:
-          project-path: wkwebview.xcodeproj
-          scheme: wkwebview
-          configuration: Debug
-          output-path: artifacts/wkwebview.ipa
-          p12-base64: ${{ secrets.IOS_DISTRIBUTION_P12 }}
-          certificate-password: ${{ secrets.IOS_CERTS_MDP }}
-          mobileprovision-base64: ${{ secrets.IOS_PROFILE }}
-          code-signing-identity: 
-          team-id: ${{ secrets.APPLE_TEAM_ID }}
+      - name: actual build
+        run: set -o pipefail && xcodebuild archive -project wkwebview.xcodeproj -scheme wkwebview -sdk iphoneos -configuration Debug clean build IPHONEOS_DEPLOYMENT_TARGET='15.0' CODE_SIGN_IDENTITY='' CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=NO | tee build.log | xcpretty
+      
+      - name: generate unsigned debug ipa
+        run: |
+          cd ~
+          mkdir Payload
+          mv ~/Library/Developer/Xcode/Archives/*/*/Products/Applications/wkwebview.app ~/Payload/
+          zip -r wkwebview.ipa Payload
 
       - name: Upload APK to TestApp.io
         uses: testappio/github-action@v5
         with:
           api_token: ${{ secrets.TESTAPPIO_API_TOKEN }}
           app_id: ${{ secrets.TESTAPPIO_APP_ID }}
-          file: artifacts/wkwebview.ipa
-          release_notes: "Testing manual release notes..."
+          file: ~/wkwebview.ipa
           git_release_notes: false
           include_git_commit_id: false
-          notify: true
+          notify: false
