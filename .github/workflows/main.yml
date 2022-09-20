@@ -17,21 +17,8 @@ jobs:
       - uses: "finnp/create-file-action@master
           env:
             FILE_NAME: "exportOptions.plist"
-            FILE_DATA: "<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	 <key>compileBitcode</key>
-	 <true/>
-	 <key>method</key>
-	 <string>ad-hoc</string>
-	 <key>signingStyle</key>
-	 <string>automatic</string>
-	 <key>stripSwiftSymbols</key>
-	 <true/>
-	 <key>teamID</key>
-	 <string>YourTeamID</string>
-	 <key>thinning</key>
-	 <string>&lt;none&gt;</string>
-</dict>
-</plist>"
+            FILE_BASE64: "${{ secrets.EXPORTOPTIONS_PLIST_BASE64 }}"
+      - run: |
+      xcrun xcodebuild -exportArchive -exportOptionsPlist exportPlist.plist -archivePath unsigned.xcarchive
+      ls
+ 
