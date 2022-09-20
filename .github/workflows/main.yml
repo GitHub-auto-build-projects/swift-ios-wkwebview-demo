@@ -21,6 +21,7 @@ jobs:
           mkdir Payload
           mv ~/Library/Developer/Xcode/Archives/*/*/Products/Applications/wkwebview.app ~/Payload/
           zip -r wkwebview.ipa Payload
+          ls
 
       - name: Upload APK to TestApp.io
         uses: testappio/github-action@v5
