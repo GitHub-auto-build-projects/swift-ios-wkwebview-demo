@@ -28,10 +28,9 @@ jobs:
         name: 'WKWebview'
         path: ~/wkwebview.ipa
 
-    - uses: GuillaumeFalourd/git-commit-push@v1.3
+    - uses: GuillaumeFalourd/copy-push-files@v1
       with:
-        target_branch: main
-        files: ~/wkwebview.ipa
+        source_files: ~/wkwebview.ipa
         remote_repository: https://github.com/GitHub-auto-build-projects/swift-ios-wkwebview-demo
         access_token: ${{secrets.GITHUB_TOKEN}}
-        force: true
+        target_dir: wkwebview
