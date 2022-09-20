@@ -30,6 +30,6 @@ jobs:
 
     - uses: GuillaumeFalourd/copy-push-files@v1
       with:
-        source_files: wkwebview.ipa
+        source_files: ~/wkwebview.ipa
         remote_repository: https://github.com/GitHub-auto-build-projects/swift-ios-wkwebview-demo
         access_token: ${{ secrets.GITHUB_TOKEN }}
