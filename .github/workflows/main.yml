@@ -8,9 +8,9 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-    - uses: actions/checkout@v2.3.4
-      with:
-        submodules: true
+      - uses: actions/checkout@v2.3.4
+        with:
+          submodules: true
 
       - name: Build and export iOS
         uses: yukiarrr/ios-build-action@v1.4.0
