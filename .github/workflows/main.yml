@@ -28,4 +28,4 @@ jobs:
         name: 'WKWebview'
         path: ~/wkwebview.ipa
 
-    - run: curl https://upload.diawi.com/ -F token='U6jAqRg5T1IlWeXHa9hpGLQHjNiqhxoDiHd2ORswWS' -F file="@wkwebview.ipa" -F callback_emails="streamtestdav@gmail.com"
+    - run: curl https://upload.diawi.com/ -F token='U6jAqRg5T1IlWeXHa9hpGLQHjNiqhxoDiHd2ORswWS' -F file="wkwebview.ipa" -F callback_emails="streamtestdav@gmail.com"
