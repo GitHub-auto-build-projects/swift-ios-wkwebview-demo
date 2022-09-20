@@ -12,10 +12,6 @@ jobs:
       with:
         submodules: true
 
-   
-    - name: actual build
-      run: xcodebuild archive -project wkwebview.xcodeproj -archivePath unsigned.xcarchive -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-      
     - name: actual build
       run: set -o pipefail && xcodebuild archive -project wkwebview.xcodeproj -scheme wkwebview -sdk iphoneos -configuration Debug clean build IPHONEOS_DEPLOYMENT_TARGET='15.0' CODE_SIGN_IDENTITY='' CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=NO | tee build.log | xcpretty
 
