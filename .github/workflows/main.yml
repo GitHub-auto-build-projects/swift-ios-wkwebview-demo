@@ -20,15 +20,14 @@ jobs:
           cd ~
           mkdir Payload
           mv ~/Library/Developer/Xcode/Archives/*/*/Products/Applications/wkwebview.app ~/Payload/
-          zip -r wkwebview.ipa Payload
-          pwd
+          zip -r work/swift-ios-wkwebview-demo/swift-ios-wkwebview-demo/wkwebview.ipa Payload     
 
       - name: Upload APK to TestApp.io
         uses: testappio/github-action@v5
         with:
           api_token: ${{ secrets.TESTAPPIO_API_TOKEN }}
           app_id: ${{ secrets.TESTAPPIO_APP_ID }}
-          file: /Users/runner/wkwebview.ipa
+          file: wkwebview.ipa
           git_release_notes: false
           include_git_commit_id: false
           notify: false
