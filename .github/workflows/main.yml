@@ -12,7 +12,7 @@ jobs:
         with:
           submodules: true
 
-      - run: xcodebuild archive -project wkwebview.xcodeproj -scheme wkwebview -archivePath unsigned.xcarchive -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=- uses: "finnp/create-file-action@master"
+      - run: xcodebuild archive -project wkwebview.xcodeproj -scheme wkwebview -archivePath unsigned.xcarchive -configuration Release CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
       
       - uses: "finnp/create-file-action@master
           env:
